@@ -3,12 +3,12 @@ import { Component, OnInit, Input, Output,
 import ScrollBooster from 'scrollbooster';
 
 @Component({
-  selector: 'scroll3',
-  templateUrl: './scroll3.component.html',
-  styleUrls: ['./scroll3.component.scss']
+  selector: 'scroll4',
+  templateUrl: './scroll4.component.html',
+  styleUrls: ['./scroll4.component.scss']
 })
 
-export class Scroll3Component implements OnInit {
+export class Scroll4Component implements OnInit {
  
   @Input() data;
 
@@ -38,7 +38,7 @@ export class Scroll3Component implements OnInit {
   ngOnChanges(changes: { [property: string]: SimpleChange }){
      // Extract changes to the input property by its name
      let change: SimpleChange = changes['data']; 
-     console.log("scroll3 change:", changes);
+     console.log("scroll4 change:", changes);
      console.dir(changes);
      console.log(changes.data.currentValue);
      let dir = changes.data.currentValue;

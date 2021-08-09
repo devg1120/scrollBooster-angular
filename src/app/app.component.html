@@ -1,14 +1,60 @@
 <!--
 <app-items></app-items>
 -->
-<div> app-calc
+<p> app-calc</p>
 <app-calc></app-calc>
-</div>
 
-<div> scroll2
+<p> scroll2</p>
 <scroll2></scroll2>
-</div>
 
-<div> scroll3
-<scroll3></scroll3>
+<p>scroll3  with primeng</p>
+
+  <p-button label="direction" (click)="scroll3_onClick()"></p-button>
+  <p-radioButton name="direction3" label="all"  value="all" 
+    [(ngModel)]="scroll3_direction" (ngModelChange)="scroll3_onChange($event)"></p-radioButton>
+  <p-radioButton name="direction3" label="horizontal"  value="horizontal" 
+    [(ngModel)]="scroll3_direction" (ngModelChange)="scroll3_onChange($event)"></p-radioButton>
+  <p-radioButton name="direction3" label="vertical" value="vertical" 
+    [(ngModel)]="scroll3_direction" (ngModelChange)="scroll3_onChange($event)"></p-radioButton>
+  <p-radioButton name="direction3" label="none" value="none" 
+    [(ngModel)]="scroll3_direction" (ngModelChange)="scroll3_onChange($event)"></p-radioButton>
+
+<scroll3 [data]="scroll3inputToChild"></scroll3>
+
+
+<p>scroll4  with primeng</p>
+<!--
+  <p-button label="direction" (click)="scroll4_onClick()"></p-button>
+  <p-radioButton name="direction4" label="all"  value="all" 
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <p-radioButton name="direction4" label="horizontal"  value="horizontal" 
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <p-radioButton name="direction4" label="vertical" value="vertical" 
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <p-radioButton name="direction4" label="none" value="none" 
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+-->
+
+  <p-button label="direction" (click)="scroll4_onClick()"></p-button>
+<div class="p-field-radiobutton">
+  <p-radioButton name="direction4"   value="all"  inputId="all"
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <label for="all">all</label>
 </div>
+<div class="p-field-radiobutton">
+  <p-radioButton name="direction4"   value="horizontal" inputId="horizontal"
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <label for="horizontal">horizontal</label>
+</div>
+<div class="p-field-radiobutton">
+  <p-radioButton name="direction4"  value="vertical" inputId="vertical"
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <label for="vertical">vertical</label>
+</div>
+<div class="p-field-radiobutton">
+  <p-radioButton name="direction4"  value="none" inputId="none"
+    [(ngModel)]="scroll4_direction" ></p-radioButton>
+  <label for="none">none</label>
+</div>
+<scroll4 [data]="scroll4_direction"></scroll4>
+
