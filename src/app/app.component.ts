@@ -31,4 +31,25 @@ export class AppComponent {
 
   }
 
+  /******************************************* scrool5 ***/
+
+  scroll5_direction : string = 'none';
+  scroll5_bounceForce : number = 0.3;
+  // scroll5_slider_val : number = 0;
+
+  scroll5_onClick() {
+    console.log("scroll5 click:", this.scroll5_direction);
+
+  }
+
+  /******************************************* scrool6 ***/
+
+  scroll6_direction : string = 'none';
+  scroll6_bounceForce : number = 0.3;
+  // scroll6_slider_val : number = 0;
+
+  scroll6_onClick() {
+    console.log("scroll6 click:", this.scroll6_direction);
+
+  }
 }

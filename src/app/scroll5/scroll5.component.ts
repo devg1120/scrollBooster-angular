@@ -3,17 +3,18 @@ import { Component, OnInit, Input, Output,
 import ScrollBooster from 'scrollbooster';
 
 @Component({
-  selector: 'scroll4',
-  templateUrl: './scroll4.component.html',
-  styleUrls: ['./scroll4.component.scss']
+  selector: 'scroll5',
+  templateUrl: './scroll5.component.html',
+  styleUrls: ['./scroll5.component.scss']
 })
 
-export class Scroll4Component implements OnInit {
+export class Scroll5Component implements OnInit {
  
-  @Input() data;
+  @Input() direction;
+  @Input() bounceForce;
 
   scb :ScrollBooster;
-  direction: string = 'none';
+  //_direction: string = 'none';
 
   //scb.updateOptions({ emulateScroll: false });
   //scb.updateOptions({ direction: "all" });
@@ -42,20 +43,37 @@ export class Scroll4Component implements OnInit {
     });
   }
 
+  /*
   ngOnChanges(changes: { [property: string]: SimpleChange }){
      // Extract changes to the input property by its name
-     let change: SimpleChange = changes['data']; 
-     console.log("scroll4 change:", changes);
+     let change: SimpleChange = changes['direction']; 
+     console.log("scroll5 change:", changes);
      console.dir(changes);
-     console.log(changes.data.currentValue);
-     let dir = changes.data.currentValue;
+     console.log(changes.direction.currentValue);
+     let dir = changes.direction.currentValue;
      if (this.scb) {
      this.scb.updateOptions({ direction: dir });
      }
 
-  // Whenever the data in the parent changes, this method gets triggered. You 
-  // can act on the changes here. You will have both the previous value and the 
-  // current value here.
   }
+  */
 
+  ngOnChanges(changes: { [property: string]: SimpleChange }){
+     if (!(this.scb)) {
+        return;
+     }
+
+     if (changes['direction']) {
+        let change: SimpleChange = changes['direction']; 
+        let dir = changes.direction.currentValue;
+        console.log("scroll5 bounceForce change:", dir);
+        this.scb.updateOptions({ direction: dir });
+     }
+     if (changes['bounceForce']) {
+        let change: SimpleChange = changes['bounceForce']; 
+        let bfv = changes.bounceForce.currentValue;
+        console.log("scroll5 bounceForce change:", bfv);
+        this.scb.updateOptions({ bounceForce: bfv });
+     }
+  }
 }
