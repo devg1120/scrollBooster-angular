@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SplitType, Vsplit, Hsplit, VsplitPosition, HsplitPosition }
+               from './scroll6/scroll6.component';
 
 @Component({
   selector: 'my-app',
@@ -47,6 +49,9 @@ export class AppComponent {
   scroll6_direction : string = 'none';
   scroll6_bounceForce : number = 0.3;
   // scroll6_slider_val : number = 0;
+
+  scroll6_splitType1 : Hsplit = { direction : "horizontal", position : "up"};
+  scroll6_splitType2 : Hsplit = { direction : "horizontal", position : "down"};
 
   scroll6_onClick() {
     console.log("scroll6 click:", this.scroll6_direction);

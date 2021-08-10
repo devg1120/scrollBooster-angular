@@ -2,6 +2,26 @@ import { Component, OnInit, Input, Output,
          EventEmitter, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import ScrollBooster from 'scrollbooster';
 
+
+/*******************************************  Split Define **/
+
+export type HsplitPosition = "up"   | "down"  ;
+export type VsplitPosition = "left" | "right" ;
+
+export interface Vsplit {
+   direction : "viertical";
+   position  : VsplitPosition;
+}
+
+export interface Hsplit {
+   direction : "horizontal";
+   position  : HsplitPosition;
+}
+
+export type SplitType = Vsplit | Hsplit;
+
+/***********************************************************/
+
 @Component({
   selector: 'scroll6',
   templateUrl: './scroll6.component.html',
@@ -12,6 +32,7 @@ export class Scroll6Component implements OnInit {
  
   @Input() direction;
   @Input() bounceForce;
+  @Input() splitType : SplitType;
 
   scb :ScrollBooster;
   //_direction: string = 'none';
@@ -39,30 +60,29 @@ export class Scroll6Component implements OnInit {
       // - how fast scrolling stops after pointer release
       friction: .1,    /* default 0.05 */
       emulateScroll: false,
-      textSelection: true
+      textSelection: true,
+      onUpdate: (state) => {
+        //console.log("*** pos:",state.position.x,state.position.y);
+        // console.log("*** offset:",state.dragOffset.x,state.dragOffset.y);
+      }
     });
-  }
 
-  /*
-  ngOnChanges(changes: { [property: string]: SimpleChange }){
-     // Extract changes to the input property by its name
-     let change: SimpleChange = changes['direction']; 
-     console.log("Scroll6 change:", changes);
-     console.dir(changes);
-     console.log(changes.direction.currentValue);
-     let dir = changes.direction.currentValue;
-     if (this.scb) {
-     this.scb.updateOptions({ direction: dir });
+     if (this.splitType) {
+        console.log("scroll6 splitType:", this.splitType.direction);
+        console.log("scroll6 splitType:", this.splitType.position);
      }
-
   }
-  */
+
 
   ngOnChanges(changes: { [property: string]: SimpleChange }){
      if (!(this.scb)) {
         return;
      }
 
+     if (changes['splitType']) {
+        console.log("scroll6 splitType:", this.splitType.direction);
+        console.log("scroll6 splitType:", this.splitType.position);
+     }
      if (changes['direction']) {
         let change: SimpleChange = changes['direction']; 
         let dir = changes.direction.currentValue;

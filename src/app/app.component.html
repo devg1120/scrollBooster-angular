@@ -209,26 +209,19 @@
 <scroll6 [direction]="scroll6_direction" [bounceForce]="scroll6_bounceForce"></scroll6>
 -->
 
-<!--
-<div style="width: 500px; height: 500px; background: yellow;">
-
-  <p-splitter [style]="{'height': '500px'}"  layout="vertical">
-    <ng-template pTemplate>
-           <scroll6 [direction]="scroll6_direction" [bounceForce]="scroll6_bounceForce"></scroll6>
-    </ng-template>
-    <ng-template pTemplate>
-           <scroll6 [direction]="scroll6_direction" [bounceForce]="scroll6_bounceForce"></scroll6>
-    </ng-template>
-</p-splitter>
-</div>
--->
 <div style="width: 500px; height: 500px; background: yellow;">
   <as-split direction="vertical" gutterSize="4">
     <as-split-area [size]="40">
-           <scroll6 [direction]="scroll6_direction" [bounceForce]="scroll6_bounceForce"></scroll6>
+           <scroll6 [splitType]="scroll6_splitType1" 
+                    [direction]="scroll6_direction" 
+                    [bounceForce]="scroll6_bounceForce">
+           </scroll6>
     </as-split-area>
     <as-split-area [size]="60">
-           <scroll6 [direction]="scroll6_direction" [bounceForce]="scroll6_bounceForce"></scroll6>
+           <scroll6 [splitType]="scroll6_splitType2" 
+                    [direction]="scroll6_direction" 
+                    [bounceForce]="scroll6_bounceForce">
+           </scroll6>
     </as-split-area>
   </as-split>
 </div>
