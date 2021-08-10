@@ -1,7 +1,15 @@
-import { Component, OnInit, Input, Output, 
+import { Component, OnInit, Input, Output, OnDestroy,
          EventEmitter, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import ScrollBooster from 'scrollbooster';
 
+import {TableSplitSyncPos} from '../service/common.service';
+
+// subscribe を保持するための Subscription を import
+import { Subscription } from 'rxjs';
+
+// サービスを登録するための import
+// アプリ全体でのサービスの共有､コンポーネント単位でのサービスの共有に関わらず､ここの import は必要 
+import { CommonService } from '../service/common.service';
 
 /*******************************************  Split Define **/
 
@@ -36,11 +44,48 @@ export class Scroll6Component implements OnInit {
 
   scb :ScrollBooster;
   //_direction: string = 'none';
+  active: boolean = false;
 
   //scb.updateOptions({ emulateScroll: false });
   //scb.updateOptions({ direction: "all" });
 
+  /**
+   * CommonService の変数の参照を取得するプロパティ
+   *
+   * @type {String}
+   * @memberof Sample1Component
+   */
+   //public serviceProp: String = 'Initialized by Sample1Component';
+  public serviceProp: TableSplitSyncPos ;
+
+  /**
+   * subscribe を保持するための Subscription
+   *
+   * @private
+   * @type {Subscription}
+   * @memberof Sample1Component
+   */
+  private subscription!: Subscription;
+
+   /**
+   * コンストラクタ. ServiceSample1Component のインスタンスを生成する
+   *
+   * @param {CommonService} commonService 共通サービス
+   * @memberof Sample1Component
+   */
+  constructor(private commonService: CommonService) { }
+
   ngOnInit() {
+
+    // イベント登録
+    // サービスで共有しているデータが更新されたら発火されるイベントをキャッチする
+    this.subscription = this.commonService.sharedDataSource$.subscribe(
+      msg => {
+        console.log('shared data updated.',msg);
+        this.serviceProp = msg;
+      }
+    );
+
   }
 
   @ViewChild('viewport', { read: ElementRef }) viewport!: ElementRef;
@@ -64,7 +109,20 @@ export class Scroll6Component implements OnInit {
       onUpdate: (state) => {
         //console.log("*** pos:",state.position.x,state.position.y);
         // console.log("*** offset:",state.dragOffset.x,state.dragOffset.y);
-      }
+        if (this.active) {
+             const pos : TableSplitSyncPos = {
+                   x: state.position.x,
+                   y: state.position.y
+                   };
+             this.commonService.onNotifySharedDataChanged(pos);
+          }
+        },
+        onPointerDown: () => {
+             this.active = true;
+        },
+        onPointerUp: () => {
+             this.active = false;
+        }
     });
 
      if (this.splitType) {
@@ -96,4 +154,15 @@ export class Scroll6Component implements OnInit {
         this.scb.updateOptions({ bounceForce: bfv });
      }
   }
+
+  /**
+   * コンポーネント終了時の処理
+   *
+   * @memberof Sample1Component
+   */
+  ngOnDestroy() {
+    //  リソースリーク防止のため CommonService から subcribe したオブジェクトを破棄
+    this.subscription.unsubscribe();
+  }
+
 }

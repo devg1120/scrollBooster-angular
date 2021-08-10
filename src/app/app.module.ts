@@ -24,6 +24,10 @@ import {SplitterModule} from 'primeng/splitter';
 import { AngularSplitModule } from 'angular-split';
 
 
+// サービスを登録するための import
+// コンポーネントで DI する場合はこの import は不要
+import { CommonService } from './service/common.service';
+
 
 @NgModule({
 imports: [
@@ -47,6 +51,11 @@ imports: [
     Scroll4Component,
     Scroll5Component,
     Scroll6Component,
+  ],
+  // サービスを登録する
+  providers: [
+    // コンポーネントで DI する場合はここでの登録は不要
+    CommonService
   ],
   bootstrap: [AppComponent]
 })
